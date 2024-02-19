@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { routes } from 'src/app/shared/routes/routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, public router: Router) {}
   ngOnInit(): void {
     if (localStorage.getItem('authenticated')) {
       localStorage.removeItem('authenticated');
@@ -38,8 +39,10 @@ export class LoginComponent implements OnInit {
         console.log(resp);
         if(resp){
           // El Login es Exitoso
+          this.router.navigate([routes.adminDashboard]);
         }else{
           // El login no es exitoso
+          alert("El usuario o contrasela son incorrectos, No existen");
         }
       },error => {
         console.log(error);

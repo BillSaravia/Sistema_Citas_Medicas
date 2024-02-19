@@ -30,13 +30,14 @@ export class AuthService {
       catchError((error:any) => {
         console.log(error);
         return of(undefined);
-      })
+      })      
     );
   }
   saveLocalStorage(auth:any){
     if(auth && auth.access_token){
       localStorage.setItem('token', auth.access_token);
       localStorage.setItem('user', JSON.stringify(auth.user));
+      localStorage.setItem('authenticated','true');
       return true;
     }
     return false;
