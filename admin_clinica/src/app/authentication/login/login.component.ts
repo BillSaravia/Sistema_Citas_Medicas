@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public routes = routes;
   public passwordClass = false;
+  public ERROR = false;
 
   form = new FormGroup({
     email: new FormControl('billsara@gmail.com', [
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
 
   loginFormSubmit() {
     if (this.form.valid) {
+      this.ERROR = false;
       this.auth.login(this.form.value.email ? this.form.value.email : '' , this.form.value.password ? this.form.value.password : '')
       .subscribe((resp: any) => {
         console.log(resp);
@@ -42,7 +44,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate([routes.adminDashboard]);
         }else{
           // El login no es exitoso
-          alert("El usuario o contrasela son incorrectos, No existen");
+          this.ERROR = true;
+
         }
       },error => {
         console.log(error);
