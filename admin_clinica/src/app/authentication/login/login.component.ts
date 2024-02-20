@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   public routes = routes;
   public passwordClass = false;
   public ERROR = false;
-
   form = new FormGroup({
     email: new FormControl('billsara@gmail.com', [
       Validators.required,
@@ -26,26 +25,27 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
 
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(public auth: AuthService,public router: Router) {}
   ngOnInit(): void {
-    if (localStorage.getItem('authenticated')) {
-      localStorage.removeItem('authenticated');
-    }
+    // if (localStorage.getItem('authenticated')) {
+    //   localStorage.removeItem('authenticated');
+    // }
   }
 
   loginFormSubmit() {
     if (this.form.valid) {
       this.ERROR = false;
-      this.auth.login(this.form.value.email ? this.form.value.email : '' , this.form.value.password ? this.form.value.password : '')
-      .subscribe((resp: any) => {
+      this.auth.login(this.form.value.email ? this.form.value.email : '' ,this.form.value.password ? this.form.value.password: '')
+      .subscribe((resp:any) => {
         console.log(resp);
         if(resp){
-          // El Login es Exitoso
-          this.router.navigate([routes.adminDashboard]);
+          // EL LOGIN ES EXITOSO
+          setTimeout(() => {
+            this.router.navigate([routes.adminDashboard]);
+          }, 50);
         }else{
-          // El login no es exitoso
+          // EL LOGIN NO ES EXITOSO
           this.ERROR = true;
-
         }
       },error => {
         console.log(error);

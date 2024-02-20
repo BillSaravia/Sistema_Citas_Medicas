@@ -16,15 +16,15 @@ export class AuthService {
   constructor(
     private router: Router,
     public http: HttpClient,
-    ){
-      this.getLocalStorage();
-    }
+  ) {
+    this.getLocalStorage();
+  }
 
   getLocalStorage(){
-    if(localStorage.getItem('token') && localStorage.getItem('user') ){
-      let USER = localStorage.getItem('user');
+    if(localStorage.getItem("token") && localStorage.getItem("user")){
+      let USER = localStorage.getItem("user");
       this.user = JSON.parse(USER ? USER : '');
-      this.token = localStorage.getItem('token');
+      this.token = localStorage.getItem("token");
     }else{
       this.user = null;
       this.token = null;
@@ -50,8 +50,8 @@ export class AuthService {
 
   saveLocalStorage(auth:any){
     if(auth && auth.access_token){
-      localStorage.setItem('token',auth.access_token);
-      localStorage.setItem('user',JSON.stringify(auth.user));
+      localStorage.setItem("token",auth.access_token);
+      localStorage.setItem("user",JSON.stringify(auth.user));
       localStorage.setItem('authenticated', 'true');
       return true;
     }
@@ -59,10 +59,9 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     localStorage.removeItem('authenticated');
     this.router.navigate([routes.login]);
   }
 }
-
